@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>NBI image analyser</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    </head>
+
+    <body>
+        <h1 class="text-center">Image Classifier</h1>
+
+        <form class="p-3 text-center" action="{{url_for('upload')}}" method="post" enctype="multipart/form-data">
+            <input class="form-control" type="file" name="videofile" accept=".mp4">
+            <input class="btn btn-primary mt-3"type="submit" value="Upload file" >
+        </form>
+
+        {% if uploaded %}
+        <p class="text-center"> {{uploaded}} is successfully uploaded</p>
+        {% endif %}
+
+        <form class="p-3 text-center" action="{{url_for('extract')}}" method="post" enctype="multipart/form-data">
+            <input class="btn btn-primary mt-3"type="submit" value="Extract frames" >
+        </form>
+
+        {% if frames %}
+        <p class="text-center"> {{frames}} frames extracted</p>
+        {% endif %}
+
+        <form class="p-3 text-center" action="{{url_for('predict')}}" method="post" enctype="multipart/form-data">
+            <input class="btn btn-primary mt-3"type="submit" value="Predict" >
+        </form>
+
+        {% if Positive_prc %}
+            <h2 class="text-center"> Positive <h1 class="text-center">{{Positive_prc}}%</h1></h2>
+            <h2 class="text-center"> Negative <h1 class="text-center">{{Negative_prc}}%</h1></h2>
+            <p class="text-center">  Found {{Positive_frame}} positive frames and {{Negative_frame}} negative frames</p>
+        {% endif %}
+        
+    </body>
+</html>
